@@ -35,31 +35,31 @@ export const Skills = () => {
                 <div className="col-12">
                     <div className="skill-bx wow zoomIn">
                         <h2>Skills</h2>
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.<br></br> Lorem Ipsum has been the industry's standard dummy text.</p>
+                        <p>I acquired these skills through learning and working on various projects.</p>
                         <Carousel responsive={responsive} infinite={true} className="owl-carousel owl-theme skill-slider">
                             <div className="item">
                                 {/*<img src={meter1} alt="Image" />*/}
-                                <h5>Web Development</h5>
-                                <h5>Brand Identity</h5>
-                                <h5>Brand Identity</h5>
+                                <h5>Javascript, Typescript, ES6+</h5>
+                                <h5>React, React Native</h5>
+                                <h5>Redux-toolkit, Thunk, Saga</h5>
                             </div>
                             <div className="item">
                                 {/*<img src={meter2} alt="Image" />*/}
-                                <h5>Brand Identity</h5>
-                                <h5>Brand Identity</h5>
-                                <h5>Brand Identity</h5>
+                                <h5>React router dom, React navigation</h5>
+                                <h5>Formik, React final form</h5>
+                                <h5>Unit tests, Snapshot image test,</h5>
                             </div>
                             <div className="item">
                                 {/*<img src={meter3} alt="Image" />*/}
-                                <h5>Logo Design</h5>
-                                <h5>Brand Identity</h5>
-                                <h5>Brand Identity</h5>
+                                <h5>Axios, Rest API, WebSocket, Socket.io, FireBase,RTK Query</h5>
+                                <h5>Material Ul, Ant design, Radix ui</h5>
+                                <h5>Git</h5>
                             </div>
                             <div className="item">
                                 {/*<img src={meter1} alt="Image" />*/}
-                                <h5>Web Development</h5>
-                                <h5>Brand Identity</h5>
-                                <h5>Brand Identity</h5>
+                                <h5>SASS</h5>
+                                <h5>Storybook, Postman</h5>
+                                <h5>Webpack</h5>
                             </div>
                         </Carousel>
                     </div>

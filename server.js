@@ -7,18 +7,15 @@ const nodemailer = require("nodemailer");
 const app = express();
 app.use(cors());
 app.use(express.json());
-app.use("/", router);
+app.use("/api", router); // Исправленный путь префикса
 app.listen(5000, () => console.log("Server Running"));
-console.log(process.env.EMAIL_USER);
-console.log(process.env.EMAIL_PASS);
 
 const contactEmail = nodemailer.createTransport({
-  service: 'gmail',
+  service: 'yandex',
   auth: {
-    user: "********@gmail.com",
-    pass: ""
-  },
-});
+    user: "mortyvp@yandex.by",
+    pass: "Minsc1234" 
+}});
 
 contactEmail.verify((error) => {
   if (error) {
@@ -29,13 +26,13 @@ contactEmail.verify((error) => {
 });
 
 router.post("/contact", (req, res) => {
-  const name = req.body.firstName + req.body.lastName;
+  const name = `${req.body.firstName} ${req.body.lastName}`; // Исправленное объединение имени
   const email = req.body.email;
   const message = req.body.message;
   const phone = req.body.phone;
   const mail = {
     from: name,
-    to: "********@gmail.com",
+    to: "mortyvp@yandex.by",
     subject: "Contact Form Submission - Portfolio",
     html: `<p>Name: ${name}</p>
            <p>Email: ${email}</p>
@@ -44,9 +41,9 @@ router.post("/contact", (req, res) => {
   };
   contactEmail.sendMail(mail, (error) => {
     if (error) {
-      res.json(error);
+      res.send(error); 
     } else {
-      res.json({ code: 200, status: "Message Sent" });
+      res.send("Message Sent"); 
     }
   });
 });
