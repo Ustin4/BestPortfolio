@@ -3,56 +3,34 @@ import { Container, Row, Col } from "react-bootstrap";
 import contactImg from "../assets/img/contact-img.svg";
 import "animate.css";
 import TrackVisibility from "react-on-screen";
+import { useForm } from "react-hook-form";
+import { sendMessage } from "../Api/telegram";
 
 export const Contact = () => {
-  const formInitialDetails = {
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    message: "",
-  };
-  const [formDetails, setFormDetails] = useState(formInitialDetails);
-const [buttonText, setButtonText] = useState("Send");
+  const { register, handleSubmit, formState, reset } = useForm({
+    values:{
+      email:''
+    }
+  });
+  const { isSubmitting, errors } = formState;
+  const [buttonText, setButtonText] = useState("Send");
   const [status, setStatus] = useState({});
 
-  const onFormUpdate = (category, value) => {
-    setFormDetails({
-      ...formDetails,
-      [category]: value,
-    });
-  };
-
-  // const handleSubmit = async (value) =>{
-  // try{
-  // const message = `Почта: ${value.email},Согласие:${value.termsOfService}`
-  // await sendMessage(message)
-  // }catch (e){
-  //   form.setFieldError('email','Ошибка ')
-  // }
-  // }
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setButtonText("Sending...");
-    let response = await fetch("http://localhost:5000/contact", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json;charset=utf-8",
-      },
-      body: JSON.stringify(formDetails),
-    });
-    setButtonText("Send");
-    let result = await response.json();
-    setFormDetails(formInitialDetails);
-    if (result.code == 200) {
-      setStatus({ succes: true, message: "Message sent successfully" });
-    } else {
+  const onSubmit = async (data) => {
+    try {
+      const message = `Почта: ${data.email}, Имя:${data.firstName} Сообщение:${data.message}`;
+      setButtonText("Sending...");
+      await sendMessage(message);
+      
+      setStatus({ success: true, message: "Message sent successfully" });
+      reset();
+    } catch (e) {
       setStatus({
-        succes: false,
+        success: false,
         message: "Something went wrong, please try again later.",
       });
     }
+    setButtonText("Send");
   };
 
   return (
@@ -81,68 +59,52 @@ const [buttonText, setButtonText] = useState("Send");
                   }
                 >
                   <h2>Get In Touch</h2>
-                  <form onSubmit={handleSubmit}>
+                  <form onSubmit={handleSubmit(onSubmit)}>
                     <Row>
                       <Col size={12} sm={6} className="px-1">
                         <input
                           type="text"
-                          value={formDetails.firstName}
                           placeholder="First Name"
-                          onChange={(e) =>
-                            onFormUpdate("firstName", e.target.value)
-                          }
+                          {...register("firstName")}
                         />
                       </Col>
+                      {/* <Col size={12} sm={6} className="px-1">
+                        <input
+                          type="text"
+                          placeholder="Last Name"
+                          {...register("lastName")}
+                        />
+                      </Col> */}
                       <Col size={12} sm={6} className="px-1">
                         <input
                           type="text"
-                          value={formDetails.lasttName}
-                          placeholder="Last Name"
-                          onChange={(e) =>
-                            onFormUpdate("lastName", e.target.value)
-                          }
+                          placeholder="Your contact"
+                          {...register("email")}
                         />
+                        {/* {errors.email && (
+                          <p className="danger">Email is required</p>
+                        )} */}
                       </Col>
-                      <Col size={12} sm={6} className="px-1">
-                        <input
-                          type="email"
-                          value={formDetails.email}
-                          placeholder="Email Address"
-                          onChange={(e) =>
-                            onFormUpdate("email", e.target.value)
-                          }
-                        />
-                      </Col>
-                      <Col size={12} sm={6} className="px-1">
+                      {/* <Col size={12} sm={6} className="px-1">
                         <input
                           type="tel"
-                          value={formDetails.phone}
                           placeholder="Phone No."
-                          onChange={(e) =>
-                            onFormUpdate("phone", e.target.value)
-                          }
+                          {...register("phone")}
                         />
-                      </Col>
+                      </Col> */}
                       <Col size={12} className="px-1">
                         <textarea
                           rows="6"
-                          value={formDetails.message}
                           placeholder="Message"
-                          onChange={(e) =>
-                            onFormUpdate("message", e.target.value)
-                          }
+                          {...register("message")}
                         ></textarea>
-                        <button type="submit">
+                        <button type="submit" disabled={isSubmitting}>
                           <span>{buttonText}</span>
                         </button>
                       </Col>
                       {status.message && (
                         <Col>
-                          <p
-                            className={
-                              status.success === false ? "danger" : "success"
-                            }
-                          >
+                          <p className={status.success ? "success" : "danger"}>
                             {status.message}
                           </p>
                         </Col>
