@@ -58,7 +58,7 @@ export const Banner = () => {
                 <span className="tagline">Welcome to my Portfolio</span>
                 <h1>{`Hi! I'm Ustin Kovalenko`} <span className="txt-rotate" dataPeriod="1000" data='["Fronted Developer"]'><span className="wrap">{text}</span></span></h1>
                   <p>I Am A Front-End Developer With Experience In Creating SPAs Using React, Redux, And TypeScript. I'm Constantly Learning, Developing, And Improving My Skills. I'm Open To Cool Project Opportunities. Feel Free To Reach Out.</p>
-                  <button onClick={() => console.log('connect')}>Let’s Connect <ArrowRightCircle size={25} /></button>
+                  {/* <button onClick={() => console.log('connect')}>Let’s Connect <ArrowRightCircle size={25} /></button> */}
               </div>}
             </TrackVisibility>
           </Col>
