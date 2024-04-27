@@ -68,30 +68,16 @@ export const Contact = () => {
                           {...register("firstName")}
                         />
                       </Col>
-                      {/* <Col size={12} sm={6} className="px-1">
-                        <input
-                          type="text"
-                          placeholder="Last Name"
-                          {...register("lastName")}
-                        />
-                      </Col> */}
+              
                       <Col size={12} sm={6} className="px-1">
                         <input
                           type="text"
                           placeholder="Your contact"
                           {...register("email")}
                         />
-                        {/* {errors.email && (
-                          <p className="danger">Email is required</p>
-                        )} */}
+                       
                       </Col>
-                      {/* <Col size={12} sm={6} className="px-1">
-                        <input
-                          type="tel"
-                          placeholder="Phone No."
-                          {...register("phone")}
-                        />
-                      </Col> */}
+                     
                       <Col size={12} className="px-1">
                         <textarea
                           rows="6"
